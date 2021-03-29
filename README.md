@@ -18,10 +18,9 @@ Things to Improve
 
 Running
 --------
-
-1/ $ cargo build && cargo run
-2/ Set proxy settings in Firefox to 127.0.0.1:12345
-3/ Browse gfycat.com and giphy.com
+ 1. cargo build && cargo run 
+ 2. Set proxy settings in Firefox to 127.0.0.1:12345
+ 3. Browse gfycat.com and giphy.com
 
 
 
