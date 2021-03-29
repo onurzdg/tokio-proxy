@@ -124,9 +124,13 @@ where
     match decoded_request_result_with_timeout {
         Ok(decoded_request_result) => match decoded_request_result {
             Some(Ok(target_address)) => {
-                if let Some(ref white_list) = config.white_list {
-                    if !white_list.contains(target_address.target()) {
+                if let Some(ref list) = config.site_list {
+                    let contains_site = list.contains(target_address.target());
+                    if !contains_site && list.is_white_list() {
                         error!(target: "forbidden-target", "Rejected routing for {} as it is not in the whitelist. {}", target_address, id);
+                        return (Err(Forbidden), target_address.into());
+                    } else if contains_site && !list.is_white_list() {
+                        error!(target: "forbidden-target", "Rejected routing for {} as it is in the blacklist. {}", target_address, id);
                         return (Err(Forbidden), target_address.into());
                     }
                 }

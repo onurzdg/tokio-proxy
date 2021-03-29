@@ -3,7 +3,7 @@ Description
 - A Proxy server that Relies on Tokio to scale to heavy load via green threads
 - Establishes tunnels via HTTP Connect handshake   
 - Creates short-lived tunnels to provide fairness to all clients
-- Uses an optional whitelist to only route requests to a few sites mentioned in the config.
+- Uses an optional whitelist or blacklist to restrict requests to si.
 
 Things to Improve
 -----------------

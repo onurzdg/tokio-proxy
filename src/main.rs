@@ -29,13 +29,11 @@ const MAX_OPEN_CONNECTIONS: usize = 10000;
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     log4rs::init_file("config/log4rs.yml", Default::default())?;
-    let white_list_regex = Regex::new(r"^([0-9A-Za-z]+\.)?(gfycat|giphy)\.com:443$")?;
+    let site_regex = Regex::new(r"^([0-9A-Za-z]+\.)?(gfycat|giphy)\.com:443$")?;
 
     // TODO: read these from a config file
     let config = Arc::new(ProxyConfig {
-        white_list: ProxyWhitelist {
-            regex: white_list_regex,
-        }.into(),
+        site_list: ProxySiteList::new(site_regex, false).into(),
         timeout: ProxyTimeout {
             http_connect_handshake_each_step: Duration::from_secs(5),
             tunnel_ttl: Duration::from_secs(30),

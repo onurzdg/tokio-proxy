@@ -5,7 +5,7 @@ pub const MAX_HTTP_CONNECT_REQUEST_SIZE: usize = 2048;
 
 #[derive(Debug)]
 pub struct ProxyConfig {
-    pub white_list: Option<ProxyWhitelist>,
+    pub site_list: Option<ProxySiteList>,
     pub timeout: ProxyTimeout,
 }
 
@@ -16,11 +16,21 @@ pub struct ProxyTimeout {
 }
 
 #[derive(Debug)]
-pub struct ProxyWhitelist {
-    pub regex: Regex,
+pub struct ProxySiteList {
+    regex: Regex,
+    operate_as_white_list: bool
 }
 
-impl ProxyWhitelist {
+impl ProxySiteList {
+    pub fn new(regex: Regex, operate_as_white_list: bool) -> ProxySiteList {
+        ProxySiteList {
+            regex,
+            operate_as_white_list
+        }
+    }
+    pub fn is_white_list(&self) -> bool {
+        self.operate_as_white_list
+    }
     pub fn contains(&self, site: &str) -> bool {
         self.regex.is_match(site)
     }

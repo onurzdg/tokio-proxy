@@ -39,11 +39,6 @@ impl Decoder for HttpCodec {
         let mut headers = [EMPTY_HEADER; 10];
         let mut req = Request::new(&mut headers[..]);
         let result = req.parse(src);
-        /*
-        println!("headers:");
-        for header in req.headers {
-            println!("{:?}", String::from_utf8(header.value.into()))
-        }*/
 
         match result {
             Ok(Status::Partial) => Ok(None),
