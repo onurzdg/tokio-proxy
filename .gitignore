@@ -1,0 +1,12 @@
+/target
+**/*.rs.bk
+
+# Intellij
+.idea/
+*.iml
+*.iws
+log/
+
+# Mac
+.DS_Store
+

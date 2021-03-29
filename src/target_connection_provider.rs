@@ -1,16 +1,16 @@
+use crate::async_read_write::{Readable, Writable};
 use async_trait::async_trait;
-use std::time::Duration;
 use std::io;
 use std::io::ErrorKind;
+use std::time::Duration;
 use tokio::net::TcpStream;
 use tokio::time::timeout;
-use crate::asyc_read_write::{Readable, Writable};
 
 #[async_trait]
 pub trait TargetConnectionProvider {
     type ReadableWritable: Readable + Writable;
     async fn connect(&self, target: &str, duration: Duration)
-                     -> io::Result<Self::ReadableWritable>;
+        -> io::Result<Self::ReadableWritable>;
 }
 
 pub struct DefaultTargetConnectionProvider;
